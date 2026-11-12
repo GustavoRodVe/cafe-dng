@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café DNG · Café de especialidad</title>
+  <meta name="description" content="Café de especialidad, desayunos y pastelería artesanal. Reserva tu mesa en línea." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="promo-banner" class="promo-banner" role="status" hidden></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="logo">Café <span>DNG</span></a>
+      <nav class="nav">
+        <a href="#menu">Menú</a>
+        <a href="#reservas">Reservas</a>
+        <a href="#resenas">Reseñas</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">Café de especialidad · Desde 2019</p>
+          <h1>Cada mañana empieza con una buena taza.</h1>
+          <p class="lead">Tostamos nuestro propio grano, horneamos todos los días y guardamos tu mesa favorita. Reserva en menos de un minuto.</p>
+          <div class="hero-actions">
+            <a href="#reservas" class="btn btn-primary">Reservar mesa</a>
+            <a href="#menu" class="btn btn-ghost">Ver menú</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <h3>Favoritos de la casa</h3>
+          <ul id="featured-list" class="featured-list"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Nuestro menú</h2>
+          <p class="muted">Precios en USD. Pregúntanos por opciones sin gluten y leches vegetales. ¿Tienes un favorito? Dale ♥.</p>
+        </div>
+        <div id="category-filters" class="filters"></div>
+        <div id="menu-grid" class="menu-grid"></div>
+      </div>
+    </section>
+
+    <section id="reservas" class="section section-alt">
+      <div class="container reservation-layout">
+        <div>
+          <h2>Reserva tu mesa</h2>
+          <p class="muted">Abrimos de martes a domingo, de 9:00 a 21:00. Para confirmar la reserva cobramos un abono por persona que se descuenta de tu consumo.</p>
+          <ul class="info-list">
+            <li>Máximo 10 personas por reserva.</li>
+            <li>Los lunes permanecemos cerrados.</li>
+            <li>Si tienes un cupón, aplícalo antes de confirmar.</li>
+          </ul>
+        </div>
+
+        <form id="reservation-form" class="card form" novalidate>
+          <div class="form-row">
+            <label>Nombre completo
+              <input type="text" name="name" required minlength="2" maxlength="80" autocomplete="name" />
+            </label>
+          </div>
+          <div class="form-row two">
+            <label>Correo
+              <input type="email" name="email" required autocomplete="email" />
+            </label>
+            <label>Teléfono <span class="muted">(opcional)</span>
+              <input type="tel" name="phone" autocomplete="tel" />
+            </label>
+          </div>
+          <div class="form-row three">
+            <label>Fecha
+              <input type="date" name="date" required />
+            </label>
+            <label>Hora
+              <select name="time" required>
+                <option value="09:00">09:00</option>
+                <option value="11:00">11:00</option>
+                <option value="13:00">13:00</option>
+                <option value="15:00">15:00</option>
+                <option value="17:00">17:00</option>
+                <option value="19:00">19:00</option>
+              </select>
+            </label>
+            <label>Personas
+              <input type="number" name="people" min="1" max="10" value="2" required />
+            </label>
+          </div>
+          <div class="form-row coupon-row">
+            <label>Cupón de descuento
+              <input type="text" name="coupon" placeholder="Ej: BIENVENIDA10" />
+            </label>
+            <button type="button" id="apply-coupon" class="btn btn-ghost">Aplicar</button>
+          </div>
+          <p id="coupon-feedback" class="feedback" aria-live="polite"></p>
+
+          <div class="estimate">
+            <span>Abono estimado</span>
+            <strong id="deposit-estimate">$0.00</strong>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Confirmar reserva</button>
+          <p id="reservation-feedback" class="feedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="resenas" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Lo que dicen nuestros clientes</h2>
+          <p class="muted">¿Ya nos visitaste? Cuéntanos cómo te fue.</p>
+        </div>
+        <div id="reviews-list" class="reviews-grid"></div>
+
+        <form id="review-form" class="card form review-form" novalidate>
+          <h3>Deja tu reseña</h3>
+          <div class="form-row two">
+            <label>Nombre
+              <input type="text" name="name" required maxlength="60" />
+            </label>
+            <label>Calificación
+              <select name="rating">
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+              </select>
+            </label>
+          </div>
+          <label>Comentario
+            <textarea name="comment" rows="3" maxlength="400" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Publicar reseña</button>
+          <p id="review-feedback" class="feedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto" class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="logo">Café <span>DNG</span></p>
+        <p class="muted">Av. Los Aromos 1450, local 3</p>
+      </div>
+      <div>
+        <p><strong>Horario</strong></p>
+        <p class="muted">Mar a Dom · 9:00 – 21:00</p>
+      </div>
+      <div>
+        <p><strong>Contacto</strong></p>
+        <p class="muted">hola@cafedng.test</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/data/menu.js"></script>
+  <script src="js/data/coupons.js"></script>
+  <script src="js/core/eventBus.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/services/couponService.js"></script>
+  <script src="js/services/likeService.js"></script>
+  <script src="js/services/reservationService.js"></script>
+  <script src="js/services/reviewService.js"></script>
+  <script src="js/views/menuView.js"></script>
+  <script src="js/views/reservationView.js"></script>
+  <script src="js/views/reviewView.js"></script>
+  <script src="js/views/promoView.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
